@@ -1,0 +1,41 @@
+Monday
+     - 10-12:00 M-昱智, M-奕平 M-法川, 政傑
+     - 14-16:00 
+     - 16-17:00 M-昱智, M-祐豪 煜家 泓奕 
+Tuesday
+    - 10-12:00 M-奕平 M-法川
+    - 14-16:00 M-昱智, M-奕平  泓奕
+    - 16-17:00 M-昱智, M-祐豪, M-奕平  泓奕 政傑
+Wednesday
+    - 14-16:00 M-昱智 M-奕平 M-法川 
+    - 16-18:00 M-昱智 M-法川 煜家
+Thursday
+    - 10-12:00 M-昱智 M-奕平 M-法川
+    - 14-16:00 M-昱智 泓奕
+    - 16-18:00 M-昱智 M-祐豪 
+
+
+
+And topics
+
+   CBS1:   1. M-昱智
+           2. U-政傑
+           3. M-奕平
+  
+   Topic: Adversarial attacks and defense against critical applications 
+            (Autonomous driving, Mixed Reality, UAV) 
+
+   CBS2:   1. M-祐豪
+           2. U-鴻鈞
+           3. U-煜家
+    Topic: Building Regeneration From Signal Fusion of 5G/6G Directional wireless communications  
+            (Blind intrusion, Signal surveillance, Moving in Dark building) 
+   
+   CBS3:   1. M-法川
+           2. U-泓奕
+           3. U-彥皓
+    Topic: Generative AI-based DDoS defense mechanisms for Imperfect and non-IID Data 
+            (DDoS defense, Imperfect Data Learning)
+
+
+
