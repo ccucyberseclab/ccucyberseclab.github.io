@@ -277,6 +277,12 @@ input[type="submit"]:focus {
   .header-titles {
 
   }
+  
+   .animated-section img {
+    max-width: none !important;
+   }
+  
+  
 
   /* --- Navigation --- */
   ul.main-menu {
@@ -2262,6 +2268,10 @@ blockquote {
   .menu-toggle {
     display: none;
   }
+  
+  .animated-section img {
+    max-width: none !important;
+   }
 }
 
 @media only screen and (max-width: 1024px) {
