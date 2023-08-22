@@ -304,7 +304,7 @@ input[type="submit"]:focus {
     display: block;
     position: relative;
     color: #b5b6b7;
-    padding: 10px;
+    padding: 5px;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
@@ -320,7 +320,7 @@ input[type="submit"]:focus {
 
   ul.main-menu .menu-icon {
     display: block;
-    font-size: 30px;
+    font-size: 22px;
   }
 
   ul.main-menu .link-text {
