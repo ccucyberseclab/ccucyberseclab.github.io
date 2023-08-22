@@ -2250,6 +2250,34 @@ blockquote {
 /* ------------------------------------------------------------
 8. Media Queries
 ------------------------------------------------------------ */
+@media only screen and (max-width: 1366px) {
+ .page {
+    padding-left: 30px;
+ }
+
+ .header {
+    max-width: 330px;
+  }
+
+  .content-area {
+    max-width: calc(100% - 330px);
+  }
+  
+  .header-buttons {
+  margin-top: 2px !important;
+  }
+  
+  ul.main-menu a　{
+   padding: 5px　!important;
+ }
+ 
+   ul.main-menu .menu-icon {
+    display: block;
+    font-size: 22px !important;
+  }
+  
+}
+
 @media only screen and (max-width: 1280px) {
  .page {
     padding-left: 30px;
