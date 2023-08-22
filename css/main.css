@@ -2270,6 +2270,12 @@ blockquote {
   ul.main-menu a　{
    padding: 5px　!important;
  }
+ 
+   ul.main-menu .menu-icon {
+    display: block;
+    font-size: 22px !important;
+  }
+  
 }
 
 @media only screen and (min-width: 1025px) {
