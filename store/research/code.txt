@@ -1,0 +1,67 @@
+#include "ns3/core-module.h"
+#include "ns3/network-module.h"
+#include "ns3/mobility-module.h"
+#include "ns3/lte-module.h"
+#include "ns3/applications-module.h"
+
+using namespace ns3;
+
+int main (int argc, char *argv[])
+{
+  // Enable LTE module
+  Config::SetDefault("ns3::LteEnbRrc::SrsPeriodicity", UintegerValue(320));
+  Config::SetDefault("ns3::LteEnbPhy::TransmissionMode", UintegerValue(2));
+
+  // Create nodes
+  NodeContainer enbNodes;
+  enbNodes.Create(2); // Two base stations
+  NodeContainer ueNodes;
+  ueNodes.Create(10); // 10 UEs
+
+  // Create mobility models
+  MobilityHelper mobility;
+  mobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
+  mobility.Install(enbNodes);
+  mobility.Install(ueNodes);
+
+  // Install LTE protocol stack on nodes
+  NetDeviceContainer enbDevs;
+  NetDeviceContainer ueDevs;
+
+  LteHelper lteHelper;
+  lteHelper.SetHandoverAlgorithmType ("ns3::A3RsrqHandoverAlgorithm");
+  lteHelper.SetHandoverAlgorithmAttribute ("ServingCellThreshold", UintegerValue (97));
+  lteHelper.SetHandoverAlgorithmAttribute ("NeighbourCellOffset", UintegerValue (0));
+
+  enbDevs = lteHelper.InstallEnbDevice (enbNodes);
+  ueDevs = lteHelper.InstallUeDevice (ueNodes);
+
+  // Install the IP stack on UEs
+  InternetStackHelper internet;
+  internet.Install (ueNodes);
+
+  // Assign IP addresses to UEs
+  Ipv4AddressHelper ipv4AddrHelper;
+  ipv4AddrHelper.SetBase ("10.1.1.0", "255.255.255.0");
+  ipv4AddrHelper.Assign (ueDevs);
+
+  // Install and configure applications on UEs
+  UdpClientHelper client (Ipv4Address ("10.1.1.1"), 9);
+  client.SetAttribute ("MaxPackets", UintegerValue (1));
+  client.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
+  client.SetAttribute ("PacketSize", UintegerValue (1024));
+  
+  for (uint32_t i = 0; i < ueNodes.GetN (); ++i)
+  {
+    ApplicationContainer clientApps = client.Install (ueNodes.Get (i));
+    clientApps.Start (Seconds (1.0));
+    clientApps.Stop (Seconds (10.0));
+  }
+
+  // Run simulation
+  Simulator::Stop (Seconds (10.0));
+  Simulator::Run ();
+  Simulator::Destroy ();
+
+  return 0;
+}
