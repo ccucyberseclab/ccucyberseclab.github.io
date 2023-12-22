@@ -1,0 +1,29 @@
+from qiskit.quantum_info import Statevector, Operator
+zero, one = Statevector.from_label("0"), Statevector.from_label("1")
+zero.tensor(one).draw("latex")
+
+
+from numpy import sqrt
+plus = Statevector.from_label("+")
+i_state = Statevector([1 / sqrt(2), 1j / sqrt(2)])
+psi = plus.tensor(i_state)
+psi.draw("latex")
+
+
+from numpy import sqrt
+plus = Statevector.from_label("-")
+i_state = Statevector([1 / sqrt(2), 1j / sqrt(2)])
+psi = plus.tensor(i_state)
+psi.draw("latex")
+
+
+X = Operator([[0, 1], [1, 0]])
+I = Operator([[1, 0], [0, 1]])
+X.tensor(I)
+psi.evolve(I ^ X).draw("latex")
+
+
+Z = Operator([[1, 0], [0, -1]])
+H = Operator([[1 / sqrt(2), 1 / sqrt(2)], [1 / sqrt(2), -1 / sqrt(2)]])
+Z.tensor(H)
+

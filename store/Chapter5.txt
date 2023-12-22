@@ -1,0 +1,125 @@
+from qiskit import QuantumCircuit
+# Create a new circuit with two qubits (first argument) and two classical
+# bits (second argument)
+qc = QuantumCircuit(2, 2)
+# Add a Hadamard gate to qubit 0
+qc.h(0)
+ # Perform a controlled-X gate on qubit 1, controlled by qubit 0
+qc.cx(0, 1)
+ # Measure qubit 0 to cbit 0, and qubit 1 to cbit 1
+qc.measure(0, 0)
+qc.measure(1, 1)
+# Return a drawing of the circuit using MatPlotLib ("mpl"). This is the
+# last line of the cell, so the drawing appears in the cell output.
+# Remove the "mpl" argument to get a text drawing.
+qc.draw("mpl")
+
+
+from numpy import array
+ket0 = array([1, 0])
+ket1 = array([0, 1])
+display(ket0 / 2 + ket1 / 2)
+
+
+M1 = array([[1, 1], [0, 0]])
+M2 = array([[1, 1], [1, 0]])
+M1 / 2 + M2 / 2
+
+
+from numpy import matmul
+display(matmul(M1, ket1))
+display(matmul(M1, M2))
+display(matmul(M2, M1))
+
+
+from qiskit.quantum_info import Statevector
+from numpy import sqrt
+u = Statevector([1 / sqrt(2), 1 / sqrt(2)])
+v = Statevector([(1 + 2.0j) / 3, -2 / 3])
+w = Statevector([1 / 3, 2 / 3])
+print("State vectors u, v, and w have been defined.")
+display(u.draw("latex"))
+display(v.draw("latex"))
+display(w.draw("latex"))
+display(u.draw("text"))
+display(v.draw("text"))
+display(w.draw("text"))
+
+
+from qiskit.quantum_info import Statevector
+from numpy import sqrt
+u = Statevector([1 / sqrt(2), 1 / sqrt(2)])
+v = Statevector([(1 + 2.0j) / 3, -2 / 3])
+w = Statevector([1 / 3, 2 / 3])
+print("State vectors u, v, and w have been defined.")
+display(u. is_valid())
+display(v. is_valid())
+display(w. is_valid())
+
+
+v = Statevector([(1 + 2.0j) / 3, -2 / 3])
+v.measure()
+
+v = Statevector([1/2, 1/2, -1/2, -1/2])
+v.measure()
+
+
+from qiskit.visualization import plot_histogram
+v = Statevector([(1 + 2.0j) / 3, -2 / 3])
+statistics = v.sample_counts(1000)
+display(statistics)
+plot_histogram(statistics)
+
+
+from qiskit.quantum_info import Operator
+X = Operator([[0, 1], [1, 0]])
+Y = Operator([[0, -1.0j], [1.0j, 0]])
+Z = Operator([[1, 0], [0, -1]])
+H = Operator([[1 / sqrt(2), 1 / sqrt(2)], [1 / sqrt(2), -1 / sqrt(2)]])
+S = Operator([[1, 0], [0, 1.0j]])
+T = Operator([[1, 0], [0, (1 + 1.0j) / sqrt(2)]])
+v = Statevector([1, 0])
+v = v.evolve(H)
+v = v.evolve(T)
+v = v.evolve(H)
+v = v.evolve(T)
+v = v.evolve(Z)
+v.draw("latex")
+
+
+from qiskit import QuantumCircuit
+circuit = QuantumCircuit(1)
+circuit.h(0)
+circuit.t(0)
+circuit.h(0)
+circuit.t(0)
+circuit.z(0)
+circuit.draw("mpl")
+
+from qiskit import QuantumCircuit
+circuit = QuantumCircuit(1)
+circuit.h(0)
+circuit.t(0)
+circuit.h(0)
+circuit.t(0)
+circuit.z(0)
+circuit.draw()
+ket0 = Statevector([1, 0])
+v = ket0.evolve(circuit)
+v.draw("latex")
+
+
+from qiskit import QuantumCircuit
+circuit = QuantumCircuit(1)
+circuit.h(0)
+circuit.t(0)
+circuit.h(0)
+circuit.t(0)
+circuit.z(0)
+circuit.draw()
+ket0 = Statevector([1, 0])
+v = ket0.evolve(circuit)
+statistics = v.sample_counts(4000)
+plot_histogram(statistics)
+
+
