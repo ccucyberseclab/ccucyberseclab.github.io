@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<title>Campus Profile</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem; }
+  .card { border: 1px solid #ddd; padding: 1rem; border-radius: 12px; max-width: 640px; }
+  .warn { color: #b00; font-weight: 600; }
+  .flag { color:#0a7; font-weight:600; }
+</style>
+<div class="card">
+  <h1>Student Profile</h1>
+  <div id="profile"></div>
+</div>
+<script>
+  const mockDB = {
+    "1": { name: "You (logged-in)", email: "you@ccu.edu.tw", major: "CS" },
+    "2": { name: "Alice", email: "alice@ccu.edu.tw", major: "EE" },
+    "3": { name: "Bob",   email: "bob@ccu.edu.tw",   major: "Math" },
+  };
+
+  const params = new URLSearchParams(location.search);
+  const requestedId = params.get('id') || "1";
+  const loggedInId = "1"; // pretend you are user #1
+
+  // INTENTIONALLY VULNERABLE: trusts the requested id without authorization
+  const rec = mockDB[requestedId];
+  const div = document.getElementById('profile');
+
+  if (!rec) {
+    div.innerHTML = `<p class="warn">No such profile.</p>`;
+  } else {
+    div.innerHTML = `
+      <p><b>Name:</b> ${rec.name}</p>
+      <p><b>Email:</b> ${rec.email}</p>
+      <p><b>Major:</b> ${rec.major}</p>
+      ${requestedId !== loggedInId ? `<p class="flag">FLAG{fix_your_acls}</p>` : ""}
+    `;
+  }
+
+  /* BLUE-TEAM FIX (explain conceptually—real fix is server-side):
+  // if (requestedId !== loggedInId) { show "Access denied" and log incident }
+  // Never trust client params for authorization; enforce checks on the server.
+  */
+</script>
+</html>

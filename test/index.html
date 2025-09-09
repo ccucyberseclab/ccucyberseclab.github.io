@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<title>CISLab – Search</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem; }
+  .card { border: 1px solid #ddd; padding: 1rem; border-radius: 12px; max-width: 640px; }
+  .flag { margin-top: .75rem; font-size: .9rem; color: #0a7; display:none; }
+  code { background: #f6f8fa; padding: 0 .25rem; border-radius: 4px; }
+</style>
+<div class="card">
+  <h1>Shopping Market</h1>
+  <p>Try searching for a deal: <code>?q=coffee</code></p>
+  <div id="results"></div>
+  <div id="flag" class="flag">FLAG{hello_world}</div>
+  <p style="margin-top:1rem; font-size:.9rem;color:#555;">
+    Tip: change the URL to include <code>?q=...</code>
+  </p>
+</div>
+<script>
+  // INTENTIONALLY VULNERABLE: directly injects query param into the DOM
+  const params = new URLSearchParams(location.search);
+  const q = params.get('q') || '';
+  const results = document.getElementById('results');
+  results.innerHTML = `<p>Search results for: <b>${q}</b></p>`; // XSS sink
+
+  // Reveal flag if a script tag runs (students will trigger alert)
+  // You can also reveal it on detection of "<script>" in 'q'
+  if (q.toLowerCase().includes('<script>')) {
+    document.getElementById('flag').style.display = 'block';
+  }
+
+  /* BLUE-TEAM FIX (show after students try):
+  // 1) Encode before insert (basic, demo purpose)
+  function escapeHTML(s){ return s.replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c])); }
+  results.innerHTML = `<p>Search results for: <b>${escapeHTML(q)}</b></p>`;
+  // 2) Or use textContent instead of innerHTML:
+  // const p = document.createElement('p');
+  // p.textContent = `Search results for: ${q}`;
+  // results.replaceChildren(p);
+  */
+</script>
+</html>
