@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<title>Campus Market – Script XSS Demo</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem; }
+  .flag { margin-top: .75rem; font-size: .9rem; color: #0a7; display:none; }
+</style>
+<h1>Campus Market</h1>
+<p>Try: <code>?q=&lt;script&gt;alert('Hacked')&lt;/script&gt;</code></p>
+
+<script>
+  // Grab query early, during initial parse
+  const params = new URLSearchParams(location.search);
+  const q = params.get('q') || '';
+
+  // VULNERABLE: document.write during parse will execute injected <script> tags
+  document.write(`<p>Search results for: <b>${q}</b></p>`);
+
+  // Reveal flag if a script tag is present
+  if (q.toLowerCase().includes('<script>')) {
+    document.write('<div id="flag" class="flag" style="display:block">FLAG{hello_xss}</div>');
+  }
+</script>
+
+<!-- (After this point, avoid more document.write calls) -->
+</html>
